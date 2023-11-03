@@ -9,4 +9,14 @@ describe("Command class", function() {
     expect( function() { new Command();}).toThrow(new Error('Command type required.'));
   });
 
+  it("constructor sets command type", function(){
+    //expect( function() {new Command(`Command Example`, 0).commandType};).toEqual(`Command Example`);
+    let command = new Command(`Test`, 0);
+    expect(command.commandType).toEqual(`Test`);
+  });
+
+  it("constructor sets a value passed in as the 2nd argument", function(){
+    let command = new Command (`Test`, 0);
+    expect(command.value).toEqual(0);
+  });
 });
