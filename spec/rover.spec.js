@@ -44,20 +44,56 @@ describe("Rover class", function() {
   //Test 9: Makes sure recieveMessage contains 2 results if 2 commands are sent in the message
 
   test("response returned by receiveMessage includes two results if two commands are sent in the message", function(){
+    //Creates new commands array
     let commands = [new Command('MODE_CHANGE', 'LOW_POWER'), new Command('STATUS_CHECK')];
 
+    //Creates message object containing previous commands array
     let message = new Message("Test message with 2 commands", commands);
-
+  
     let rover = new Rover();
 
-    let tempResult = rover.recieveMessage(message).messageCommand.length;
+    //Assigns function output to a variable
+    let output = rover.recieveMessage(message);
 
-    expect(tempResult).toEqual(2);
+    let arrayLength = output.messageCommand.length;
 
-    //let arrayLength = tempResult.messageCommand.length;
-
-    //expect(arrayLength).toEqual(2);
+    expect(arrayLength).toEqual(2);
 
     //rover.recieveMessage(message)
 
 });
+
+//Test 10: Rover correctly responds to the status check command
+
+test("Responds correctly to the status check command", function(){
+
+  let commands = [new Command('STATUS_CHECK')];
+
+  let message = new Message("Test STATUS_CHECK command", commands);
+
+  let rover = new Rover(100)
+
+  let output = rover.recieveMessage(message);
+
+    expect(output.roverStatus.mode).toEqual('NORMAL');
+    expect(output.roverStatus.position).toEqual(100);
+    expect(output.roverStatus.generatorWatts).toEqual(110);
+})
+
+//Test 11: Rover correctly changes mode when MODE_CHANGE command is submitted
+
+test("Responds correctly to the mode change command", function(){
+  //Commands array made to change mode of rover
+  let commands = [new Command('MODE_CHANGE', 'LOW_POWER')];
+
+  let message = new Message("Test MODE_CHANGE command", commands);
+
+  let rover = new Rover();
+
+  let output = rover.recieveMessage(message);
+
+  expect(output.completed )
+
+  
+
+})

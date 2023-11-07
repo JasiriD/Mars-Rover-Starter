@@ -19,4 +19,6 @@ describe("Command class", function() {
     let command = new Command (`Test`, 0);
     expect(command.value).toEqual(0);
   });
+
+  
 });
